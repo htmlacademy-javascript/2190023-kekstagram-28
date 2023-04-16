@@ -5,6 +5,7 @@ const RANDOM_THUMBNAILS_COUNT = 10;
 const RERENDER_DELAY = 500;
 
 const thumbnailsFilter = document.querySelector('.img-filters');
+
 const sortDescThumbnails = (first, second) => second.comments.length - first.comments.length;
 
 const rerenderThumbnails = (data, id) => {
