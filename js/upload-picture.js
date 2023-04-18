@@ -1,12 +1,13 @@
 import { addScaleListeners } from './upload-picture-scale.js';
-import { createSlider, setupSlider, destroySlider, addEffectListener} from './upload-picture-effects.js';
+import { createSlider, setupSlider, destroySlider, addEffectListener } from './upload-picture-effects.js';
 import { addValidators, isValidForm, resetPristine } from './upload-picture-validation.js';
 import { renderSuccessMessage, renderErrorMessage } from './upload-picture-send-messages.js';
 import { sendData } from './server-data.js';
 
 const SEND_DATA_URL = 'https://28.javascript.pages.academy/kekstagram';
+
 const pictureUploadForm = document.querySelector('.img-upload__form');
-const pictureUploadInput = document.querySelector('#upload-file');
+const onPictureUploadInput = document.querySelector('#upload-file');
 const pictureUploadPreview = document.querySelector('.img-upload__preview img');
 const pictureEdit = document.querySelector('.img-upload__overlay');
 const submitButton = document.querySelector('.img-upload__submit');
@@ -35,8 +36,12 @@ const onUploadPictureFormSubmit = (evt) => {
 const onCloseButtonClick = () => closePictureUpload();
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape' && !evt.target.closest('.text__hashtags') && !evt.target.closest('.text__description')) {
-    closePictureUpload();
+  try {
+    if (evt.key === 'Escape' && !evt.target.closest('.text__hashtags') && !evt.target.closest('.text__description')) {
+      closePictureUpload();
+    }
+  } catch (err) {
+    //
   }
 };
 
@@ -64,7 +69,7 @@ function defaultSetupPictureUpload() {
 function openPictureUpload() {
   createSlider();
   setupSlider(checkedEffectInput.value);
-  pictureUploadPreview.src = URL.createObjectURL(pictureUploadInput.files[0]);
+  pictureUploadPreview.src = URL.createObjectURL(onPictureUploadInput.files[0]);
   document.body.classList.add('modal-open');
   pictureEdit.classList.remove('hidden');
 }
@@ -78,7 +83,7 @@ function closePictureUpload() {
 }
 
 const initUploadPictureModule = () => {
-  pictureUploadInput.addEventListener('change', openPictureUpload);
+  onPictureUploadInput.addEventListener('change', openPictureUpload);
   addFormBaseListeners();
   addScaleListeners();
   addEffectListener();
