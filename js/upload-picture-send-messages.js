@@ -21,6 +21,18 @@ const addMessageListeners = (type) => {
 
 const createSuccessMessage = () => document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 
+if (document.querySelector('.success__button')) {
+  if (document.querySelector('.success__inner').focus()) {
+    document.querySelector('.success__button').focus();
+  }
+}
+
+if (document.querySelector('.error__button')) {
+  if (document.querySelector('.error__inner').focus()) {
+    document.querySelector('.error__button').focus();
+  }
+}
+
 const renderSuccessMessage = () => {
   document.body.append(createSuccessMessage());
   document.querySelector('.success__button').focus();
